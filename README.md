@@ -2,7 +2,7 @@
 
 ## Installing CoSign and Setting Up Apache
 * Please see ISC's instructions here: http://www.upenn.edu/computing/weblogin/docs/apache_installation.html
-* An example Apache httpd .conf file is located in examples/
+* An example Apache httpd conf file is located in examples/
 
 ## Installing the Django App
 * Add this line to the requirements.txt of your Django project:
