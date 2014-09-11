@@ -6,10 +6,10 @@
 
 ## Installing the Django App
 * Add this line to the requirements.txt of your Django project:
-git+https://...(stash Penn shared)
+git+https://github.com/wharton/django-penn-user.git
 
 * Or, install via pip:
-pip install git:https://...(stash Penn shared)
+pip install git+https://github.com/wharton/django-penn-user.git
 
 ## Modifying Your Settings Files to add the Middleware and Backends
 
