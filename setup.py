@@ -8,9 +8,9 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='penn_user',
+    name='pennuser',
     version='0.1',
-    packages=['penn_user'],
+    packages=['pennuser'],
     include_package_data=True,
     license='BSD License',
     description="A simple Django app to use the University of Pennsylvania's CoSign auth and extend Django's base user.",
