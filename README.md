@@ -33,16 +33,15 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.RemoteUserBackend',
 )
 
-CUSTOM_USER_MODEL = 'penn_user.PennUser'
+CUSTOM_USER_MODEL = 'pennuser.PennUser'
 
 INSTALLED_APPS = (
-    'south',
     'bootstrap3',
-    'penn_user',
+    'pennuser',
 )
 ```
 
-Or, for prod.py only:
+Or, for prod.py only (handy, if you want to use Django's auth for local dev):
 
 ```
 MIDDLEWARE_CLASSES += (
@@ -55,7 +54,7 @@ AUTHENTICATION_BACKENDS += (
 )
 
 INSTALLED_APPS += (
-    'django_penn_user',
+    'pennuser',
 )
 ```
 
