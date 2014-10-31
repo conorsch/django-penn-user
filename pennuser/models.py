@@ -1,14 +1,57 @@
 from django.db import models
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
-class PennUser(User):
-    penn_id = models.IntegerField()
-    join_date = models.DateField()
-    last_login_date = models.DateField()
-    login_count = models.IntegerField()
-    # put additional properties here
+class PennUserManager(BaseUserManager):
+    """
+    Custom user manager for PennUser class.
+    """
 
-    objects = UserManager()
+    def create_user(self, username, password=None):
+        if not username:
+            raise ValueError('Users must have a PennKey')
 
-# other models...
+        user = self.model(username)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, password):
+        user = self.create_user(username, password=password)
+        user.is_staff = True
+        # Django 1.7 docs don't mention "is_admin" privilege,
+        # but let's support it anyway.
+        user.is_admin = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+class PennUser(AbstractBaseUser):
+    """
+    Custom user model for Penn people. Requires valid PennKey for login.
+    This model should be used with RemoteUserBackend and Apache mod_cosign.
+    """
+
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=8, unique=True)
+    full_name = models.CharField(max_length=255, null=True)
+    email = models.EmailField(
+        max_length=255,
+        null=True,
+        unique=True,
+    )
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    objects = PennUserManager()
+
+    USERNAME_FIELD = 'username'
+
+    def get_full_name(self):
+        return self.full_name
+
+    def __unicode__(self):
+        return self.username
+
