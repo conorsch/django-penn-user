@@ -6,11 +6,12 @@ from django.db.models import get_model
 class PennUserModelBackend(RemoteUserBackend):
     def authenticate(self, remote_user):
         """
-        Attempts to authenticate a user against CoSign.
-        If successful, handles both logging in the user, and creating the user's
-        account if this is their first time logging in.
+        This code is the same as the authenticate function from 
+        django.contrib.auth.backends.RemoteUserBackend,
+        except with a way to specify our extended User model.  
+        The idea for the self.user_class property comes 
+        from Scott Barnham.
         """
-
         if not remote_user:
             return
         user = None
@@ -27,11 +28,13 @@ class PennUserModelBackend(RemoteUserBackend):
                 pass
         return user
 
-
     @property
     def user_class(self):
+        """
+        This code was written by Scott Barnham.
+        """
         if not hasattr(self, '_user_class'):
             self._user_class = get_model(*settings.CUSTOM_USER_MODEL.split('.', 2))
             if not self._user_class:
-                raise ImproperlyConfigured('Could not get custom user model.')
+                raise ImproperlyConfigured('Could not get custom user model')
         return self._user_class
