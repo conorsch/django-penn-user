@@ -77,6 +77,7 @@ TODO
 
 CONTRIBUTORS:
 -------------
+* David Roller
 * Conor Schaefer
 * Tim Allen
 
