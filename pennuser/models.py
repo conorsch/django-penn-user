@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class PennUserManager(BaseUserManager):
@@ -26,7 +26,7 @@ class PennUserManager(BaseUserManager):
         return user
 
 
-class PennUser(AbstractBaseUser):
+class PennUser(PermissionsMixin, AbstractBaseUser):
     """
     Custom user model for Penn people. Requires valid PennKey for login.
     This model should be used with RemoteUserBackend and Apache mod_cosign.
@@ -43,7 +43,6 @@ class PennUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
 
     objects = PennUserManager()
 
@@ -52,6 +51,9 @@ class PennUser(AbstractBaseUser):
     def get_full_name(self):
         return self.full_name
 
-    def __unicode__(self):
+    def get_short_name(self):
+        return self.full_name
+
+    def __str__(self):
         return self.username
 
