@@ -67,3 +67,11 @@ python manage.py migrate
 ```
 
 Feel free to contact me with questions: tallen@upenn.edu
+
+TODO
+----
+* bootstrap tests
+* write custom backend for Cosign support
+** Shibb support?
+* more validators for PennUser model attributes
+
