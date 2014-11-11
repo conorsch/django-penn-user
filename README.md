@@ -72,6 +72,15 @@ TODO
 ----
 * bootstrap tests
 * write custom backend for Cosign support
-** Shibb support?
+* Shibb support?
 * more validators for PennUser model attributes
 
+CONTRIBUTORS:
+-------------
+* Conor Schaefer
+* Tim Allen
+
+THANK YOU:
+----------
+* To the fine people of Information & Systems Computing at the University of Pennsylvania.
+* To the fine people of University of Michigan, who's (now deprecated) article got this started in Django 1.4.
