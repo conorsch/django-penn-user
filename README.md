@@ -15,7 +15,7 @@ pip install git+https://github.com/wharton/django-penn-user.git
 
 In order to integrate CoSign with the Django auth system, we have to tell Django to use the REMOTE_USER server variable. This is done by add the RemoteUserMiddleware module to the MIDDLEWARE_CLASSES setting, and setting the RemoteUserBackend as the default AUTHENTICATION_BACKEND. In your appropriate settings file (settings/base.py, or only in settings/prod.py if you don't have access to the CoSign server on dev) file, add the line 'django.contrib.auth.middleware.RemoteUserMiddleware' after the 'django.contrib.auth.middleware.AuthenticationMiddleware' line in your MIDDLEWARE_CLASSES setting. Also, add the variable "AUTHENTICATION_BACKENDS" as a tuple, and add 'django.contrib.auth.backends.RemoteUserBackend' as the first entry.
 
-You must also add this app to your installed apps.
+You must also add this app to your installed apps. Before doing so, make sure you have done your initial migration of your Django project to create the user and group table in the database, or there will be nothing to inherit from and the app will error.
 
 Here is an example of this configuration:
 
@@ -59,5 +59,11 @@ INSTALLED_APPS += (
 ```
 
 Then, you can begin to customize the models.py (and auth_backend.py if necessary).
+
+Don't forget to run this to create the necessary pennuser_pennuser table in your Django Project's database after adding the pennuser app to INSTALLED_APPS:
+
+```
+python manage.py migrate
+```
 
 Feel free to contact me with questions: tallen@upenn.edu
