@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-from datetime import datetime
 
 class PennUserManager(BaseUserManager):
     """
@@ -12,7 +11,7 @@ class PennUserManager(BaseUserManager):
         if not username:
             raise ValueError('Users must have a PennKey')
 
-        user = self.model(username)
+        user = self.model(username=username)
         user.save(using=self._db)
         return user
 
