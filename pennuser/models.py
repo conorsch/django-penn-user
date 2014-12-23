@@ -35,11 +35,11 @@ class PennUser(PermissionsMixin, AbstractBaseUser):
 
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=8, unique=True)
-    full_name = models.CharField(max_length=255, null=True)
+    pennid = models.CharField(max_length=8, unique=True)
+    full_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(
         max_length=255,
-        null=True,
-        unique=True,
+        blank=True,
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
