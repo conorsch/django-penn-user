@@ -18,4 +18,7 @@ def validate_pennname(pennname):
 
 def validate_pennid(pennid):
     """Ensure PennID is 8 digits."""
-
+    regex = r'^[0-9]{8}$'
+    if not re.match(regex, pennid):
+        msg = "'{}' is not a valid PennID."
+        raise ValidationError(msg)
