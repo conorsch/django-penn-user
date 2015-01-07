@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+import re
 
 
 def validate_pennname(pennname):
@@ -9,6 +10,10 @@ def validate_pennname(pennname):
 
     from: http://www.upenn.edu/computing/pennnames/
     """
+    regex = r'^[a-z][a-z0-9]{1,7}$'
+    if not re.match(regex, pennname):
+        msg = "'{}' is not a valid PennName."
+        raise ValidationError(msg)
 
 
 def validate_pennid(pennid):
