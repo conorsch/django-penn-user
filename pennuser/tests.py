@@ -4,7 +4,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from .factories import PennUserFactory, PennUserStaffFactory, PennUserAdminFactory
-from .validators import validate_pennname
+from .validators import validate_pennname, validate_pennid
 
 
 class TestPennUserAttributes(TestCase):
@@ -28,6 +28,23 @@ class TestPennUserAttributes(TestCase):
     def test_pennkey_is_invalid(self):
         self.assertRaises(ValidationError, validate_pennname, '1kjlakd')
         self.assertRaises(ValidationError, validate_pennname, 'abcdefghi')
+
+    def test_pennid_is_valid(self):
+        """Ensure PennID is 8 digits."""
+        try:
+            validate_pennid(self.user.pennid)
+        except ValidationError:
+            msg = "Unexpectedly failed to validate PennID '{}'."
+            self.fail(msg)
+
+    def test_pennid_is_invalid(self):
+        # Can't have letters
+        self.assertRaises(ValidationError, validate_pennid, 'abc')
+        # Can't be less than 8 characters
+        self.assertRaises(ValidationError, validate_pennid, '837291')
+        # Can't be more than 8 characters
+        self.assertRaises(ValidationError, validate_pennid, '820392992')
+
 
     def test_email_is_valid(self):
         """Ensure email address looks right."""
