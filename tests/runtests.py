@@ -38,6 +38,7 @@ ALWAYS_MIDDLEWARE_CLASSES = (
 
 
 settings.configure(
+    AUTH_USER_MODEL='pennuser.PennUser',
     SECRET_KEY="sWaVGkNXlHAcQNpQjVNOyVsJDQCcWG",
     DEBUG=False,
     TEMPLATE_DEBUG=False,
