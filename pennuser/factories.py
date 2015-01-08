@@ -6,7 +6,7 @@ from .models import PennUser
 class PennUserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = PennUser
 
-    username = factory.Sequence(lambda n: "bfranklin{0}".format(n))
+    username = factory.Sequence(lambda n: "bfrank{0}".format(n))
     email = factory.LazyAttribute(lambda obj: "{0}@seas.upenn.edu".format(obj.username))
 
 
