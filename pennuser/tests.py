@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 from django.test import TestCase
-from .factories import PennUserFactory, PennUserStaffFactory, PennUserAdminFactory
 from django.core.validators import validate_email
-import re
+from django.core.exceptions import ValidationError
+
+from .factories import PennUserFactory, PennUserStaffFactory, PennUserAdminFactory
+from .validators import validate_pennname
 
 
 class TestPennUserAttributes(TestCase):
@@ -16,10 +18,16 @@ class TestPennUserAttributes(TestCase):
         self.assertFalse(self.user.is_admin)
 
     def test_pennkey_is_valid(self):
-        """Ensure username field is 3-8 alphanumeric characters."""
-        # There should be NO capital letters.
-        self.assertFalse(re.match(r'[A-Z]', self.user.username))
-        self.assertTrue(re.match(r'[a-z0-9]{3,8}', self.user.username))
+        """Ensure username field is 2-8 alphanumeric characters."""
+        try:
+            validate_pennname(self.user.username)
+        except ValidationError:
+            msg = "Unexpectedly failed to validate PennKey '{}'."
+            self.fail(msg)
+
+    def test_pennkey_is_invalid(self):
+        self.assertRaises(ValidationError, validate_pennname, '1kjlakd')
+        self.assertRaises(ValidationError, validate_pennname, 'abcdefghi')
 
     def test_email_is_valid(self):
         """Ensure email address looks right."""
