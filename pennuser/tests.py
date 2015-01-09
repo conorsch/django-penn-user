@@ -61,8 +61,6 @@ class TestPennUserStaffAttributes(TestCase):
 
     def test_user_is_staff(self):
         self.assertTrue(self.user.username)
-        print("USERNAME IS: ")
-        print(self.user.username)
         self.assertTrue(self.user.is_staff)
         self.assertFalse(self.user.is_admin)
 
@@ -73,5 +71,6 @@ class TestPennUserAdminAttributes(TestCase):
         self.user = PennUserAdminFactory()
 
     def test_user_is_admin(self):
+        self.assertTrue(self.user.username)
         self.assertTrue(self.user.is_admin)
         self.assertTrue(self.user.is_staff)
