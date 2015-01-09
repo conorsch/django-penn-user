@@ -58,12 +58,7 @@ settings.configure(
     USE_L10N=True,
     USE_TZ=True,
     STATIC_URL='/static/',
-    # Use a fast hasher to speed up tests.
-    PASSWORD_HASHERS=(
-        'django.contrib.auth.hashers.MD5PasswordHasher',
-    ),
-    FIXTURE_DIRS=glob.glob(BASE_DIR + '/' + '*/fixtures/')
-
+    FIXTURE_DIRS=glob.glob(BASE_DIR + '/' + '*/fixtures/'),
 )
 
 django.setup()
