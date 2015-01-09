@@ -34,8 +34,17 @@ class PennUser(PermissionsMixin, AbstractBaseUser):
     """
 
     id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=8, unique=True, validators=[validate_pennname])
-    pennid = models.CharField(max_length=8, unique=True, validators=[validate_pennid])
+    username = models.CharField(max_length=8,
+        unique=True,
+        validators=[validate_pennname],
+    )
+    pennid = models.CharField(
+        max_length=8,
+        unique=True,
+        validators=[validate_pennid],
+        blank=True,
+        null=True,
+    )
     full_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(
         max_length=255,
@@ -54,6 +63,7 @@ class PennUser(PermissionsMixin, AbstractBaseUser):
 
     def get_short_name(self):
         return self.full_name
+
 
     def __str__(self):
         return self.username
