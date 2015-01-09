@@ -45,13 +45,11 @@ class TestPennUserAttributes(TestCase):
         # Can't be more than 8 characters
         self.assertRaises(ValidationError, validate_pennid, '820392992')
 
-
     def test_email_is_valid(self):
         """Ensure email address looks right."""
         # Django's core validator will raise an exception on failure; let's make sure.
         from django.core.exceptions import ValidationError
         self.assertRaises(ValidationError, validate_email, ["xxx"])
-
         # Email address should be valid.
         validate_email(self.user.email)
 
@@ -62,6 +60,9 @@ class TestPennUserStaffAttributes(TestCase):
         self.user = PennUserStaffFactory()
 
     def test_user_is_staff(self):
+        self.assertTrue(self.user.username)
+        print("USERNAME IS: ")
+        print(self.user.username)
         self.assertTrue(self.user.is_staff)
         self.assertFalse(self.user.is_admin)
 
