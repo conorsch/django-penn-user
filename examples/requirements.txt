@@ -1,0 +1,1 @@
+-e git://github.com/wharton/django-penn-user.git#egg=pennuser
