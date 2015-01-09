@@ -39,6 +39,7 @@ ALWAYS_MIDDLEWARE_CLASSES = (
 
 settings.configure(
     AUTH_USER_MODEL='pennuser.PennUser',
+    AUTHENTICATION_BACKENDS=('pennuser.auth_backends.PennUserModelBackend',),
     SECRET_KEY="sWaVGkNXlHAcQNpQjVNOyVsJDQCcWG",
     DEBUG=False,
     TEMPLATE_DEBUG=False,
